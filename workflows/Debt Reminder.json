@@ -1,0 +1,109 @@
+{
+  "name": "Debt Reminder",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 22
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a94a7870-f45d-40bf-8939-48f214f6892c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "12e4af9c-64a4-407f-ba48-10a9054aa178",
+              "name": "message",
+              "value": "Your payment reminder: Please check your outstanding debt and make your payment on time.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "214369a7-e628-48a5-8019-1100771e985c",
+      "name": "Message"
+    },
+    {
+      "parameters": {
+        "fromEmail": "your@gmail.com",
+        "toEmail": "reciever@gmail.com",
+        "emailFormat": "text",
+        "text": "={{ $json.message }}Your payment reminder: Please check your outstanding debt...",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "7b171f68-e43a-406c-ab21-b841cf359521",
+      "name": "Send an Email",
+      "webhookId": "96af3b11-7895-4726-926c-fe28b5f7fab5",
+      "credentials": {
+        "smtp": {
+          "id": "UlTw1qyaFgIYJCHZ",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9fd892f0-83e3-4e21-aaf6-c1e3105d193a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5df2c4f5c62b6ca24c5767a0392c01d3e7b4f119072397f22a510903fd8f836d"
+  },
+  "nodeGroups": [],
+  "id": "KhTtsoWBZYEE3Wgy",
+  "tags": []
+}
